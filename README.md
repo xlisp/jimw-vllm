@@ -1,5 +1,55 @@
 # jimw-vllm
+## install gpu driver 530 & cuda 12.2
 
+```sh
+$ sudo apt install \
+ nvidia-dkms-530 \
+ nvidia-driver-530
+
+## ---- install nvcc
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/12.2.0/local_installers/cuda-repo-ubuntu2004-12-2-local_12.2.0-535.54.03-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2004-12-2-local_12.2.0-535.54.03-1_amd64.deb
+sudo cp /var/cuda-repo-ubuntu2004-12-2-local/cuda-*-keyring.gpg /usr/share/keyrings/
+sudo apt-get update
+sudo apt-get -y install cuda
+## ----
+
+(base) xlisp@xlisp:~/jimw-vllm$ nvidia-smi
+Fri Dec  6 12:31:23 2024
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.183.01             Driver Version: 535.183.01   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  NVIDIA GeForce GTX 1080        Off | 00000000:03:00.0  On |                  N/A |
+|  0%   36C    P8              11W / 198W |    308MiB /  8192MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|    0   N/A  N/A      1115      G   /usr/lib/xorg/Xorg                           66MiB |
+|    0   N/A  N/A      1494      G   /usr/lib/xorg/Xorg                          155MiB |
+|    0   N/A  N/A      1639      G   /usr/bin/gnome-shell                         40MiB |
+|    0   N/A  N/A      9859      G   ...90,262144 --variations-seed-version       35MiB |
++---------------------------------------------------------------------------------------+
+(base) xlisp@xlisp:~/jimw-vllm$ nvcc -V
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Tue_Jun_13_19:16:58_PDT_2023
+Cuda compilation tools, release 12.2, V12.2.91
+Build cuda_12.2.r12.2/compiler.32965470_0
+(base) xlisp@xlisp:~/jimw-vllm$
+```
+
+## test vllm
 ```py
 (base) xlisp@xlisp:~$ proxy
 (base) xlisp@xlisp:~$ ipython
