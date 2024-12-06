@@ -196,4 +196,15 @@ INFO:     Application shutdown complete.
 INFO:     Finished server process [16458]
 (base) xlisp@xlisp:~/jimw-vllm$
 
+## can run
+(base) xlisp@xlisp:~/jimw-vllm$ vllm serve "meta-llama/Llama-3.2-1B" --dtype=float32 --gpu-memory-utilization=0.95 --max-model-len=4096
+
+vllm serve "meta-llama/Llama-3.2-1B" --dtype=float32 --gpu-memory-utilization=1.0 --max-model-len=8192
+
+## test 
+(base) xlisp@xlisp:~/jimw-vllm$ vllm serve "google/gemma-2-9b" --dtype=float32 --gpu-memory-utilization=1.0 --max-model-len=4096
+
+ERROR 12-06 14:41:08 engine.py:366] ValueError: XFormers does not support attention logits soft capping.
+INFO 12-06 14:41:06 selector.py:261] Cannot use FlashAttention-2 backend for Volta and Turing GPUs.
+
 ```
