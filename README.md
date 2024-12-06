@@ -1,4 +1,4 @@
-# jimw-vllm
+# learn vllm
 ## ubuntu 20.04 install gpu driver 530 & cuda 12.2
 
 ```sh
@@ -6,9 +6,7 @@
 Linux xlisp 5.15.0-126-generic #136~20.04.1-Ubuntu SMP Thu Nov 14 16:38:05 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
 (base) xlisp@xlisp:~/jimw-vllm$
 
-$ sudo apt install \
- nvidia-dkms-530 \
- nvidia-driver-530
+$ sudo apt install  nvidia-dkms-530  nvidia-driver-530
 
 ## ---- install nvcc
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
