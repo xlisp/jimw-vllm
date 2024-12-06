@@ -52,6 +52,16 @@ Build cuda_12.2.r12.2/compiler.32965470_0
 ```
 
 ## test vllm
+* install vllm 
+```
+pip uninstall torch vllm
+pip install torch --index-url https://download.pytorch.org/whl/cu118
+pip install torchvision --index-url https://download.pytorch.org/whl/cu118
+pip install vllm
+
+pip list | grep -i cuda
+
+```
 ```py
 (base) xlisp@xlisp:~$ proxy
 (base) xlisp@xlisp:~$ ipython
