@@ -87,3 +87,40 @@ Processed prompts: 100%|███████████████| 1/1 [00:0
 Out[3]: [RequestOutput(request_id=0, prompt='who are you?', prompt_token_ids=[8727, 389, 345, 30], encoder_prompt=None, encoder_prompt_token_ids=None, prompt_logprobs=None, outputs=[CompletionOutput(index=0, text=' � disagreement!!!!!!!!!!!!!!', token_ids=(564, 25800, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), cumulative_logprob=None, logprobs=None, finish_reason=length, stop_reason=None)], finished=True, metrics=RequestMetrics(arrival_time=1733456759.553771, last_token_time=1733456759.553771, first_scheduled_time=1733456759.5569673, first_token_time=1733456759.6604152, time_in_queue=0.003196239471435547, finished_time=1733456759.8888953, scheduler_time=0.0018781600001602783, model_forward_time=None, model_execute_time=None), lora_request=None, num_cached_tokens=0)]
 
 ```
+
+## test llama3.2
+
+* https://huggingface.co/meta-llama/Llama-3.2-1B?local-app=vllm
+
+```bash
+
+huggingface-cli login  Install from pip  Copy  # Install vLLM from pip:
+
+pip install vllm   Copy  # Load and run the model:
+
+vllm serve "meta-llama/Llama-3.2-1B"   Copy  # Call the server using curl:
+
+## ValueError: Bfloat16 is only supported on GPUs with compute capability of at least 8.0. Your NVIDIA GeForce GTX 1080 GPU has compute capability 6.1. You can use float16 instead by explicitly setting the`dtype` flag in CLI, for example: --dtype=half.
+
+curl -X POST "http://localhost:8000/v1/completions" \
+	-H "Content-Type: application/json" \
+	--data '{
+		"model": "meta-llama/Llama-3.2-1B",
+		"prompt": "Once upon a time,",
+		"max_tokens": 512,
+		"temperature": 0.5
+	}'
+
+```
+
+* other 
+
+```
+In [5]: llm = LLM(model="Qwen/Qwen-7B", trust_remote_code=True)
+        - OutOfMemoryError: CUDA out of memory. Tried to allocate 172.00 MiB.
+
+https://huggingface.co/google/gemma-2-9b
+
+ValueError: Bfloat16 is only supported on GPUs with compute capability of at least 8.0. Your NVIDIA GeForce GTX 1080 GPU has compute capability 6.1.
+
+```
